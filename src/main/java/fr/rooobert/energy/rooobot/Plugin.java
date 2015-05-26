@@ -13,10 +13,14 @@ import org.pircbotx.User;
 import com.google.common.collect.ImmutableSortedSet;
 
 import fr.rooobert.energy.rooobot.listeners.IrcMessageListener;
+import fr.rooobert.energy.rooobot.listeners.IrcPrivateMessageListener;
 
+/** Super-class of all IRC bot plugins */
 public class Plugin {
 	// --- Constants
 	private static final Logger logger = LogManager.getLogger(Plugin.class);
+	
+	/** Regular expression used to parse text command parameters */
 	public static final Pattern COMMAND_ARGUMENT = Pattern.compile("\\S+");
 	
 	// --- Attributes
@@ -98,6 +102,10 @@ public class Plugin {
 	}
 	
 	// -- Actions
+	/** Send a text message to IRC.
+	 * @param target Can be a channel name starting with the channel prefix, or a username
+	 * for a private message.
+	 * @param message */
 	protected void ircSendMessage(String target, String message) {
 		logger.trace("Sending to " + target + " message : " + message);
 		this.bot.sendMessage(target, message);
@@ -129,12 +137,21 @@ public class Plugin {
 		}
 	}
 	
+	// Event management
 	protected void addMessageListener(String nick, String channel, IrcMessageListener listener) {
 		this.bot.addMessageListener(this, nick, channel, listener);
 	}
 	
 	protected void removeMessageListener(IrcMessageListener listener) {
 		this.bot.removeMessageListener(listener);
+	}
+	
+	protected void addPrivateMessageListener(String nick, IrcPrivateMessageListener listener) {
+		this.bot.addPrivateMessageListener(this, nick, listener);
+	}
+	
+	protected void removePrivateMessageListener(IrcPrivateMessageListener listener) {
+		this.bot.removePrivateMessageListener(listener);
 	}
 	
 	// -- Event receivers
@@ -150,14 +167,6 @@ public class Plugin {
 	public void onCommand(String channel, String sender, String login, String hostname, String command) {
 	}
 	
-	/** Called when a private message is received from a user.
-	 * @param channel
-	 * @param sender
-	 * @param login
-	 * @param hostname */
-	public void onPrivateMessage(String channel, String sender, String login, String hostname) {
-	}
-
 	/** Indicates if the provided username belonds to one of
 	 * this plugin's administrators
 	 * @param nick */
