@@ -1,5 +1,7 @@
 package fr.rooobert.energy.rooobot;
 
+import java.sql.Connection;
+
 import org.pircbotx.User;
 
 import com.google.common.collect.ImmutableSortedSet;
@@ -16,6 +18,8 @@ public interface IrcBot {
 	String getNick();
 	
 	void shutdown(String reason);
+	
+	Connection getConnection();
 	
 	// -----------------------
 	// Event listeners handling

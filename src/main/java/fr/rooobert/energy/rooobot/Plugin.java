@@ -1,5 +1,6 @@
 package fr.rooobert.energy.rooobot;
 
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Properties;
@@ -152,6 +153,10 @@ public class Plugin {
 	
 	protected void removePrivateMessageListener(IrcPrivateMessageListener listener) {
 		this.bot.removePrivateMessageListener(listener);
+	}
+	
+	protected final Connection getConnection() {
+		return this.bot.getConnection();
 	}
 	
 	// -- Event receivers
