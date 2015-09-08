@@ -42,4 +42,6 @@ public interface IrcBot {
 	void removePrivateMessageListener(IrcPrivateMessageListener listener);
 	
 	int removePrivateMessageListener(Plugin plugin);
+
+	void joinChannel(String channel);
 }

@@ -116,6 +116,10 @@ public class Plugin {
 		return this.bot.getUsers(channel);
 	}
 	
+	public void ircJoinChannel(String channel) {
+		this.bot.joinChannel(channel);
+	}
+	
 	public void shutdown(String reason) {
 		this.bot.shutdown(reason);
 	}
